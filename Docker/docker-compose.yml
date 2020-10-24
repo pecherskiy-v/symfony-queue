@@ -68,6 +68,20 @@ services:
     networks:
       - mvc-components-net
 
+  rabbitmq:
+    image: "bitnami/rabbitmq:latest"
+    container_name: rabbitmq
+    hostname: rabbitmq
+    environment:
+      RABBITMQ_USERNAME: rabbitmq
+      RABBITMQ_PASSWORD: rabbitmq
+      RABBITMQ_VHOST: "/"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    networks:
+      - mvc-components-net
+
 #  mysql:
 #    container_name: ${COMPOSE_PROJECT_NAME}-mysql
 #    image: "mysql/mysql-server:5.7.21"

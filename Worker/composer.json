@@ -1,23 +1,26 @@
 {
+  "name": "symfony/skeleton",
   "type": "project",
-  "license": "proprietary",
+  "license": "MIT",
+  "description": "A minimal Symfony project recommended to create bare bones applications",
   "require": {
-    "php": ">=7.2.5",
-    "ext-json": "*",
+    "php": ">=7.1.3",
     "ext-ctype": "*",
     "ext-iconv": "*",
+    "ext-json": "*",
     "doctrine/annotations": "^1.11",
-    "symfony/console": "5.1.*",
-    "symfony/dotenv": "5.1.*",
+    "php-amqplib/rabbitmq-bundle": "^1.14",
+    "symfony/console": "*",
+    "symfony/dotenv": "*",
     "symfony/flex": "^1.3.1",
-    "symfony/framework-bundle": "5.1.*",
-    "symfony/yaml": "5.1.*"
+    "symfony/framework-bundle": "*",
+    "symfony/messenger": "4.*",
+    "symfony/yaml": "*"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master"
   },
   "config": {
-    "optimize-autoloader": true,
     "preferred-install": {
       "*": "dist"
     },
@@ -37,7 +40,6 @@
     "paragonie/random_compat": "2.*",
     "symfony/polyfill-ctype": "*",
     "symfony/polyfill-iconv": "*",
-    "symfony/polyfill-php72": "*",
     "symfony/polyfill-php71": "*",
     "symfony/polyfill-php70": "*",
     "symfony/polyfill-php56": "*"
@@ -60,7 +62,7 @@
   "extra": {
     "symfony": {
       "allow-contrib": false,
-      "require": "5.1.*"
+      "require": "4.4.*"
     }
   }
 }
