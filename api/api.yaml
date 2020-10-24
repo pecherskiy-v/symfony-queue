@@ -1,0 +1,67 @@
+swagger: "2.0"
+info:
+  title: API
+  description: API description in Markdown.
+  version: 1.0.0
+host: api.example.com
+schemes:
+  - https
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /event/new:
+    post:
+      summary: .
+      description: .
+      parameters:
+        - in: body
+          name: body
+          schema:
+            allOf:
+              - $ref: '#/definitions/Request'
+            properties:
+              data:
+                type: object
+                required:
+                  - userId
+                  - message
+                properties:
+                  userId:
+                    type: integer
+                    example:
+                      - 1
+                  message:
+                    type: string
+                    example:
+                      event messaga
+
+      responses:
+        200:
+          description: OK
+          schema:
+            allOf:
+              - $ref: '#/definitions/Response'
+
+definitions:
+  #
+  # Basic request
+  #
+  Request:
+    type: object
+    properties:
+      data:
+        type: object
+
+  #
+  # Basic response
+  #
+  Response:
+    type: object
+    properties:
+      requestId:
+        type: string
+      data:
+        type: object

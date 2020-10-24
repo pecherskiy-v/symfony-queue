@@ -1,0 +1,9 @@
+POST http://{{host}}/event/new
+Content-Type: application/json
+
+{
+  "data": {
+    "userId": {{user_id}},
+    "event": "{{message}}"
+  }
+}
