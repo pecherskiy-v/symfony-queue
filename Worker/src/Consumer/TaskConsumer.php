@@ -8,6 +8,7 @@ use OldSound\RabbitMqBundle\RabbitMq\ConsumerInterface;
 use PhpAmqpLib\Message\AMQPMessage;
 use Psr\Log\LoggerInterface;
 use App\Consumer\Dto\TaskDto;
+use Carbon\Carbon;
 
 final class TaskConsumer implements ConsumerInterface
 {
@@ -24,7 +25,7 @@ final class TaskConsumer implements ConsumerInterface
      */
     public function execute(AMQPMessage $msg): void
     {
-        $this->logger->debug('new AMQPMessage');
+        // $this->logger->debug('new AMQPMessage');
         // так как у нас в этот обработчик попадает только один тип сообщений
         // то тут только один варинат объекта.
         $msgDto = new TaskDto($msg->getBody());
@@ -33,8 +34,8 @@ final class TaskConsumer implements ConsumerInterface
         // пишем в лог сообщение.
         $this->logger->info(
             "new event message ({$msgDto->message}) from user: {$msgDto->userId}",
-            ['timeshtamp' => $msgDto->timeshtamp]
+            ['timeshtamp' => Carbon::createFromTimestamp($msgDto->timeshtamp)->format('H:i:s')]
         );
-        $this->logger->debug('message processing completed');
+        // $this->logger->debug('message processing completed');
     }
 }

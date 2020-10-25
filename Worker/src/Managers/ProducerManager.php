@@ -20,9 +20,14 @@ final class ProducerManager
         $this->logger = $logger;
     }
 
-    public function publish(string $msg, string $queue = 'task'): void
-    {
-        $this->container->get("old_sound_rabbit_mq.{$queue}_producer")->publish($msg);
+    public function publish(
+        string $msg,
+        string $queue = 'task',
+        string $routingKey = '',
+        array $additionalProperties = [],
+        array $headers = null
+    ): void {
+        $this->container->get("old_sound_rabbit_mq.{$queue}_producer")->publish($msg, $routingKey, $additionalProperties, $headers);
         $this->logger->debug('message publish', ['queue' => $queue, 'message' => $msg]);
     }
 }

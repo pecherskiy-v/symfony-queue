@@ -9,6 +9,7 @@
     "ext-iconv": "*",
     "ext-json": "*",
     "doctrine/annotations": "^1.11",
+    "nesbot/carbon": "^2.41",
     "php-amqplib/rabbitmq-bundle": "^1.14",
     "symfony/console": "*",
     "symfony/dotenv": "*",
