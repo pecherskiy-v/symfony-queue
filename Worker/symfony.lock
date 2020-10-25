@@ -14,6 +14,9 @@
     "doctrine/lexer": {
         "version": "1.2.1"
     },
+    "monolog/monolog": {
+        "version": "1.25.5"
+    },
     "php-amqplib/php-amqplib": {
         "version": "v2.8.0"
     },
@@ -144,6 +147,24 @@
     },
     "symfony/mime": {
         "version": "v4.4.15"
+    },
+    "symfony/monolog-bridge": {
+        "version": "v4.4.15"
+    },
+    "symfony/monolog-bundle": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "d7249f7d560f6736115eee1851d02a65826f0a56"
+        },
+        "files": [
+            "./config/packages/dev/monolog.yaml",
+            "./config/packages/prod/deprecations.yaml",
+            "./config/packages/prod/monolog.yaml",
+            "./config/packages/test/monolog.yaml"
+        ]
     },
     "symfony/polyfill-intl-idn": {
         "version": "v1.19.0"
