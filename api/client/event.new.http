@@ -7,3 +7,51 @@ Content-Type: application/json
     "event": "{{message}}"
   }
 }
+
+###
+
+POST http://{{host}}/event/new
+Content-Type: application/json
+
+{
+  "data": {
+    "userId": 2,
+    "event": "{{message}} 2"
+  }
+}
+
+###
+
+POST http://{{host}}/event/new
+Content-Type: application/json
+
+{
+  "data": {
+    "userId": 3,
+    "event": "{{message}} 3"
+  }
+}
+
+###
+
+POST http://{{host}}/event/new
+Content-Type: application/json
+
+{
+  "data": {
+    "userId": 4,
+    "event": "{{message}} 4"
+  }
+}
+
+###
+
+POST http://{{host}}/event/new
+Content-Type: application/json
+
+{
+  "data": {
+    "userId": 5,
+    "event": "{{message}} 5"
+  }
+}
