@@ -51,7 +51,7 @@ services:
       - type: bind
         source: ../Worker
         target: /var/www/mvc
-    restart: always
+    restart: on-failure
     links:
       - rabbitmq
     depends_on:
@@ -110,9 +110,10 @@ services:
     hostname: rabbitmq
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:15672"]
-      interval: 30s
+      start_period: 60s
+      interval: 120s
       timeout: 10s
-      retries: 5
+      retries: 3
     environment:
       RABBITMQ_USERNAME: rabbitmq
       RABBITMQ_PASSWORD: rabbitmq
