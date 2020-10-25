@@ -17,10 +17,12 @@ services:
       - type: bind
         source: ../Worker
         target: /var/www/mvc
-
     restart: always
-#    depends_on:
-#      - mysql
+    links:
+      - rabbitmq
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
     working_dir: /var/www/mvc/src
     environment:
       - PHP_XDEBUG_IDEKEY=PSTORM
@@ -33,7 +35,41 @@ services:
       - PHP_XDEBUG_REMOTE_PORT=9006
       - PHP_XDEBUG_REMOTE_MODE=req
       - PHP_IDE_CONFIG=serverName=MVC-CLI
-      - COMPOSER_MEMORY_LIMIT=-1
+    networks:
+      - mvc-components-net
+
+  php74-consumer:
+    container_name: ${COMPOSE_PROJECT_NAME}-php74-consumer
+    build: ./php74
+    volumes:
+      - type: tmpfs
+        target: /var/www/mvc/var
+        tmpfs:
+          size: 1048576 # 1 MB
+        volume:
+          nocopy: true
+      - type: bind
+        source: ../Worker
+        target: /var/www/mvc
+    restart: always
+    links:
+      - rabbitmq
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    working_dir: /var/www/mvc
+    environment:
+      - PHP_XDEBUG_IDEKEY=PSTORM
+      - PHP_XDEBUG_DEFAULT_ENABLE=0
+      - PHP_XDEBUG_REMOTE_ENABLE=0
+      - PHP_XDEBUG_REMOTE_AUTOSTART=0
+      - PHP_XDEBUG_REMOTE_CONNECT_BACK=0
+      - PHP_XDEBUG_PROFILER_ENABLE=0
+      - PHP_XDEBUG_REMOTE_HOST=host.docker.internal
+      - PHP_XDEBUG_REMOTE_PORT=9006
+      - PHP_XDEBUG_REMOTE_MODE=req
+      - PHP_IDE_CONFIG=serverName=MVC-CLI
+    command: php /var/www/mvc/bin/console rabbitmq:consumer task -vvv
     networks:
       - mvc-components-net
 
@@ -72,6 +108,11 @@ services:
     image: "bitnami/rabbitmq:latest"
     container_name: rabbitmq
     hostname: rabbitmq
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:15672"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     environment:
       RABBITMQ_USERNAME: rabbitmq
       RABBITMQ_PASSWORD: rabbitmq
