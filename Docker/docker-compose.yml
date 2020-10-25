@@ -39,7 +39,6 @@ services:
       - mvc-components-net
 
   php74-consumer:
-    container_name: ${COMPOSE_PROJECT_NAME}-php74-consumer
     build: ./php74
     volumes:
       - type: tmpfs
@@ -52,6 +51,16 @@ services:
         source: ../Worker
         target: /var/www/mvc
     restart: on-failure
+    deploy:
+      mode: replicated
+      replicas: ${worker_count}
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 50M
+        reservations:
+          cpus: '0.01'
+          memory: 20M
     links:
       - rabbitmq
     depends_on:
